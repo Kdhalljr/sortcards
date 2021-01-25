@@ -1,0 +1,26 @@
+Rem Attribute VBA_ModuleType=VBAModule
+Option VBASupport 1
+Sub saveSortedLists()
+' Saves list of sorted cards
+' Written by Kevin Hall
+
+    ' Initialized workbooks
+    Set SortedBook = ActiveWorkbook
+    Dim GiftBook As Workbook
+    Dim TradeBook As Workbook
+    Set GiftBook = Workbooks.Add
+    Set TradeBook = Workbooks.Add
+    
+    ' Saves output lists to new workbooks
+    SortedBook.Worksheets("Gift Cards").Range("A2:A1000").Copy
+    GiftBook.Worksheets("Sheet1").Paste
+    SortedBook.Worksheets("Trade Cards").Range("A2:A1000").Copy
+    TradeBook.Worksheets("Sheet1").Paste
+    Application.DisplayAlerts = False
+    GiftBook.SaveAs Filename:=SortedBook.Path & "\" & "GC_list.csv", FileFormat:=xlCSV
+    GiftBook.Close
+    TradeBook.SaveAs Filename:=SortedBook.Path & "\" & "TC_list.csv", FileFormat:=xlCSV
+    TradeBook.Close
+    Application.DisplayAlerts = True
+    
+End Sub

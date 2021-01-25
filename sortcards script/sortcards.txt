@@ -1,0 +1,45 @@
+Rem Attribute VBA_ModuleType=VBAModule
+Option VBASupport 1
+Sub sortCards()
+' Card number formatting and sorting script
+' Written by Kevin Hall
+' Note: Does not check for duplicates or erroneous characters in text
+' Note: Make sure to scan the card properly and do so starting in Worksheets("Scanned Cards") where you last left off
+' Can sort at most 999 card numbers
+
+    
+    Set SortedBook = ActiveWorkbook
+    
+    ' Clears contents of output worksheets
+    SortedBook.Worksheets("Gift Cards").Range("A1:A1000").ClearContents
+    SortedBook.Worksheets("Trade Cards").Range("A1:A1000").ClearContents
+    SortedBook.Worksheets("Gift Cards").Range("A1") = "Gift Cards"
+    SortedBook.Worksheets("Trade Cards").Range("A1") = "Trade Cards"
+
+    ' Filters miscellaneous characters
+    SortedBook.Worksheets("Scanned Cards").Columns(1).Replace _
+        What:="%", Replacement:=""
+    SortedBook.Worksheets("Scanned Cards").Columns(1).Replace _
+        What:="~?", Replacement:=""
+    SortedBook.Worksheets("Scanned Cards").Columns(1).Replace _
+        What:=";", Replacement:=""
+    SortedBook.Worksheets("Scanned Cards").Columns(1).Replace _
+        What:="E", Replacement:=""
+
+    ' Sorts card numbers
+    Dim cell As Range
+    For Each cell In SortedBook.Worksheets("Scanned Cards").Range("A1:A999")
+        If (Left(cell.Text, 1) = "7") Then
+                SortedBook.Worksheets("Gift Cards").Range("A" & Rows.Count).End(xlUp).Offset(1, 0) = cell.Text
+        ElseIf ((Left(cell.Text, 1) = "3") Or (Left(cell.Text, 1) = "2")) Then
+                SortedBook.Worksheets("Trade Cards").Range("A" & Rows.Count).End(xlUp).Offset(1, 0) = cell.Text
+        ElseIf cell = "" Then
+            MsgBox "Finished"
+            Exit For
+        Else
+            MsgBox "---Erroneous Card Number---" & vbCrLf & "Cell: " & cell.Address & vbCrLf & "Value: " & cell
+        End If
+    Next cell
+            
+End Sub
+

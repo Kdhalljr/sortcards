@@ -1,0 +1,32 @@
+Version 1 - 1/17/2017
+
+Instructions to SortCards script:
+
+- Open the excel file named SortCards.xlsm and save as a different file in a new folder in the parent folder 
+
+- The naming convention for the new file and new folder has thus far been "Sorted Cards yyyy-mm-dd"
+
+- Make sure to navigate to the Scanned Cards workbook and start on the first unused cell in row A when you swipe
+
+- Make sure that all cards scan correctly, if not then manually type the card number in
+
+- Every so often it is wise to sort the cards, so that if there are any errors then it is easy to find out which card that error pertains to
+	navigate to the Developer tab -> and click Macros, a window will pop up, double click sortCards
+	this script will sort the cards into two separate workbooks: Trade Cards and Gift Cards
+
+- When finished sorting cards, save the sorted lists as their own files, ready to be uploaded by rePortal
+	navigate to the Developer tab -> Macros, a window will pop up, double click saveSortedLists
+	this script will save the Gift Cards and Trade Cards workbooks as their own files: GC_list.csv and TC_list.csv
+
+- Copy GC_list.csv to the network folder xxxxxx and TC_list.csv to the network folder xxxxxx
+
+- Zero out the trade and gift cards by opening xxxxxx, log in, and navigate to  IT Maintenance
+	there you will see Gift Card Zero and Trade Card Zero
+	Zero out the cards by clicking either menu item and then the sub item named Run [Gift/Trade] Card Proc
+	finish by zeroing out the other set of gift/trade cards
+
+- Copy the completed folder (Sorted Cards yyyy-mm-dd) to the done folder
+
+NOTE:
+	The script stops sorting once it hits a blank line, so if you scan to some cells, skip a cell, and then scan the rest of the card numbers, uh-oh
+	The script will stop once it hits the blank spot and see that as the end of the list
